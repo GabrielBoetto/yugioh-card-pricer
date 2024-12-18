@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 
 // Función para cargar el archivo CSV
 export const cargarCartas = async () => {
-  const archivoCSV = './data/Yugioh.csv';  // Ruta al archivo CSV (debe ser accesible desde el servidor)
+  const archivoCSV = '../data/dataCartas.csv';  // Ruta al archivo CSV (debe ser accesible desde el servidor)
 
   // Utilizamos fetch para obtener el archivo
   const response = await fetch(archivoCSV);

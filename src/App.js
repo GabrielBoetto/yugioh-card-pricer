@@ -1,50 +1,52 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { cargarCartas } from './services/cardService';
+import CardResult from './components/CardResult';
 
-function App() {
-    const [query, setQuery] = useState('');
-    const [cards, setCards] = useState([]);
-    const [total, setTotal] = useState(0);
+const App = () => {
+  const [cartas, setCartas] = useState([]);
+  const [cartaEncontrada, setCartaEncontrada] = useState(null);
+  const [nombreCarta, setNombreCarta] = useState('');
 
-    const buscarCarta = async () => {
-        if (!query) return; // Si no hay texto, no hace nada
-
-        try {
-            const response = await fetch(`https://api.tcgplayer.com/.../cards?name=${query}`);
-            const data = await response.json();
-
-            if (data && data.price) {
-                setCards([...cards, { name: query, price: data.price }]);
-                setTotal(total + data.price);
-            } else {
-                alert('Carta no encontrada.');
-            }
-        } catch (error) {
-            console.error('Error al buscar carta:', error);
-        }
+  useEffect(() => {
+    // Cargar cartas al inicio
+    const fetchCartas = async () => {
+      const cartasCargadas = await cargarCartas();
+      setCartas(cartasCargadas);
     };
+    fetchCartas();
+  }, []);
 
-    return (
-        <div className="container">
-            <h1>Yu-Gi-Oh! Card Pricer</h1>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Buscar carta"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
-                <button onClick={buscarCarta}>Buscar</button>
-            </div>
-            <h2>Lista de Cartas</h2>
-            <ul>
-                {cards.map((card, index) => (
-                    <li key={index}>{card.name} - ${card.price.toFixed(2)}</li>
-                ))}
-            </ul>
-            <div className="total">Total: ${total.toFixed(2)}</div>
-        </div>
+  const buscarCarta = (nombreCarta) => {
+    if (!nombreCarta || typeof nombreCarta !== 'string') {
+      console.log('El nombre de la carta no es válido');
+      return; // Salir de la función si no es válido
+    }
+
+    const carta = cartas.find(carta =>
+      carta.name && carta.name.toLowerCase().includes(nombreCarta.toLowerCase())
     );
-}
+
+    if (!carta) {
+      console.log('Carta no encontrada');
+      setCartaEncontrada(null); // No encontró carta
+    } else {
+      setCartaEncontrada(carta); // Carta encontrada
+    }
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="Buscar carta"
+        value={nombreCarta}
+        onChange={(e) => setNombreCarta(e.target.value)}
+      />
+      <button onClick={() => buscarCarta(nombreCarta)}>Buscar</button>
+
+      {cartaEncontrada && <CardResult carta={cartaEncontrada} />}
+    </div>
+  );
+};
 
 export default App;
