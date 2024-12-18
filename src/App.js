@@ -1,74 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [cardList, setCardList] = useState([]);
+    const [query, setQuery] = useState('');
+    const [cards, setCards] = useState([]);
+    const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    const initialSearch = prompt('Ingrese el nombre de una carta para buscar:');
-    if (initialSearch) {
-      searchCards(initialSearch);
-    }
-  }, []);
+    const buscarCarta = async () => {
+        if (!query) return; // Si no hay texto, no hace nada
 
-  const searchCards = async (term) => {
-    try {
-      const response = await axios.get(`http://localhost:5000/api/cards?name=${term}`);
-      setSearchResults(response.data.cards);
-      console.log('Resultados encontrados:', response.data.cards);
-    } catch (error) {
-      console.error('Error al buscar cartas:', error);
-    }
-  };
+        try {
+            const response = await fetch(`https://api.tcgplayer.com/.../cards?name=${query}`);
+            const data = await response.json();
 
-  const addCardToList = (card) => {
-    setCardList([...cardList, card]);
-    alert(`¡Carta añadida a la lista: ${card.name}!`);
-  };
+            if (data && data.price) {
+                setCards([...cards, { name: query, price: data.price }]);
+                setTotal(total + data.price);
+            } else {
+                alert('Carta no encontrada.');
+            }
+        } catch (error) {
+            console.error('Error al buscar carta:', error);
+        }
+    };
 
-  const calculateTotal = () => {
-    return cardList.reduce((total, card) => total + (card.price || 0), 0).toFixed(2);
-  };
-
-  return (
-    <div className="App">
-      <h1>Yu-Gi-Oh! Card Pricer</h1>
-      
-      {/* Búsqueda */}
-      <input
-        type="text"
-        placeholder="Buscar carta"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button onClick={() => searchCards(searchTerm)}>Buscar</button>
-      
-      {/* Resultados */}
-      <ul>
-        {searchResults.map((card) => (
-          <li key={card.id}>
-            {card.name} - ${card.price || 'N/A'}
-            <button onClick={() => addCardToList(card)}>Añadir</button>
-          </li>
-        ))}
-      </ul>
-
-      {/* Lista de Cartas */}
-      <div id="card-list">
-        <h2>Lista de Cartas</h2>
-        <ul>
-          {cardList.map((card, index) => (
-            <li key={index}>
-              {card.name} - ${card.price || 'N/A'}
-            </li>
-          ))}
-        </ul>
-        <h3>Total: ${calculateTotal()}</h3>
-      </div>
-    </div>
-  );
+    return (
+        <div className="container">
+            <h1>Yu-Gi-Oh! Card Pricer</h1>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Buscar carta"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+                <button onClick={buscarCarta}>Buscar</button>
+            </div>
+            <h2>Lista de Cartas</h2>
+            <ul>
+                {cards.map((card, index) => (
+                    <li key={index}>{card.name} - ${card.price.toFixed(2)}</li>
+                ))}
+            </ul>
+            <div className="total">Total: ${total.toFixed(2)}</div>
+        </div>
+    );
 }
 
 export default App;
