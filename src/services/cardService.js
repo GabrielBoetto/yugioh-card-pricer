@@ -1,15 +1,18 @@
-// src/services/cardService.js
-import Papa from 'papaparse';
-
-// Función para cargar el archivo CSV
 export const cargarCartas = async () => {
-  const archivoCSV = '../data/dataCartas.csv';  // Ruta al archivo CSV (debe ser accesible desde el servidor)
-
-  // Utilizamos fetch para obtener el archivo
+  const archivoCSV = '/dataCartas.csv';  // Ruta correcta al archivo en la carpeta public
   const response = await fetch(archivoCSV);
-  const textoCSV = await response.text();
 
-  // Usamos PapaParse para procesar el CSV y devolver los datos
-  const resultados = Papa.parse(textoCSV, { header: true });
-  return resultados.data;  // Devuelve los datos como un array de objetos
+  if (!response.ok) {
+    console.error('Error al cargar el archivo CSV');
+    return [];
+  }
+
+  const text = await response.text();
+  const rows = text.split('\n');  // Divide las filas
+  const cartas = rows.slice(1).map(row => {
+    const [name, setName, price] = row.split(',');  // Asume que el CSV tiene estas columnas
+    return { name, setName, price };  // Devuelve cada carta como un objeto
+  });
+
+  return cartas;
 };

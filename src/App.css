@@ -1,46 +1,152 @@
-/* src/App.css */
+/* Estilo global */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
   margin: 0;
-  padding: 20px;
-  background-color: #f4f4f9;
+  padding: 0;
 }
 
-h1 {
+header {
+  background-color: #3498db;
+  color: white;
+  padding: 20px 0;
   text-align: center;
 }
 
-form {
-  margin-bottom: 20px;
+header .logo {
+  width: 50px;
+  margin-bottom: 10px;
 }
 
-input {
-  padding: 8px;
-  font-size: 16px;
-  margin-right: 10px;
+header h1 {
+  margin: 0;
+  font-size: 2rem;
 }
 
-button {
-  padding: 8px 16px;
+header .credits {
+  font-size: 1rem;
+  color: #ecf0f1;
+  margin-top: 10px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 300px;
+  padding: 12px;
+  border-radius: 30px;
+  border: 2px solid #3498db;
   font-size: 16px;
-  background-color: #007bff;
+  margin-right: 20px;
+}
+
+.search-button, .view-list-button, .add-to-list-button {
+  padding: 10px 20px;
+  background-color: #3498db;
   color: white;
   border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.card-result {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: white;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-.card-result h3 {
-  margin-top: 0;
+.search-button:hover, .view-list-button:hover, .add-to-list-button:hover {
+  background-color: #2980b9;
+}
+
+.view-list-button {
+  margin-left: 10px;
+}
+
+.quantity-container {
+  margin-top: 10px;
+}
+
+.copias-input {
+  width: 60px;
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 5px;
+  border: 1px solid #3498db;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.card-item {
+  background-color: #ffffff;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 250px;
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card-item:hover {
+  transform: translateY(-10px);
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.selected-cards {
+  margin-top: 20px;
+}
+
+.selected-cards ul {
+  list-style: none;
+  padding: 0;
+}
+
+.selected-cards li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 10px 0;
+}
+
+.card-thumbnail {
+  width: 50px;
+  height: auto;
+  object-fit: contain;
+}
+
+.confirmation-message {
+  background-color: #2ecc71;
+  color: white;
+  padding: 10px;
+  margin: 20px 0;
+  text-align: center;
+  border-radius: 5px;
+  font-size: 1.1rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+footer a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
 }
