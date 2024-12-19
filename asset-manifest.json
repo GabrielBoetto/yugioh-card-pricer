@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/yugioh-card-pricer/static/css/main.590a0827.css",
+    "main.js": "/yugioh-card-pricer/static/js/main.cba62300.js",
+    "static/js/488.0dec64bd.chunk.js": "/yugioh-card-pricer/static/js/488.0dec64bd.chunk.js",
+    "index.html": "/yugioh-card-pricer/index.html",
+    "main.590a0827.css.map": "/yugioh-card-pricer/static/css/main.590a0827.css.map",
+    "main.cba62300.js.map": "/yugioh-card-pricer/static/js/main.cba62300.js.map",
+    "488.0dec64bd.chunk.js.map": "/yugioh-card-pricer/static/js/488.0dec64bd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.590a0827.css",
+    "static/js/main.cba62300.js"
+  ]
+}
