@@ -1,7 +1,7 @@
 /* Estilo global */
 body {
   font-family: 'Arial', sans-serif;
-  background-color: #00b31e;
+  background-color: #00b31e !important;
   color: #333;
   margin: 0;
   padding: 0;
