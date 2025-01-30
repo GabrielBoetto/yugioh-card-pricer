@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
+
 function App() {
   const [cartas, setCartas] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -68,7 +69,6 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-      <img src="../media/iconothunder.ico" alt="Logo" className="logo" />
         <h1>Yu-Gi-Oh! Card Pricer</h1>
         <p className="credits">Desarrollado por Gabriel Boetto</p>
       </header>
