@@ -70,16 +70,13 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
         <h1>Yu-Gi-Oh! Card Pricer</h1>
         <p className="credits">Desarrollado por Gabriel Boetto.</p>
 =======
-=======
->>>>>>> Stashed changes
         <h1>Yu-Gi-Oh! Card Pricer2</h1>
         <p className="credits">Desarrollado por Gabriel Boetto</p>
->>>>>>> Stashed changes
+
       </header>
 
       <div className="search-container">
