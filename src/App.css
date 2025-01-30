@@ -26,7 +26,7 @@ header h1 {
 
 header .credits {
   font-size: 1rem;
-  color: #ecf0f1;
+  color: #be0c0c;
   margin-top: 10px;
 }
 
@@ -107,30 +107,31 @@ input:disabled {
 /* Cards */
 .card-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 15px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 10px;
+  padding: 10px;
 }
 
 .card-item {
   background-color: #ffffff;
   border: 1px solid #ecf0f1;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-  padding: 15px;
+  padding: 10px;
   transition: transform 0.3s ease;
+  max-width: 120px;
 }
 
 .card-item:hover {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
 }
 
 .card-image {
   width: 100%;
   height: auto;
   object-fit: contain;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 /* Modal para lista */
@@ -181,3 +182,4 @@ footer a {
   text-decoration: none;
   font-weight: bold;
 }
+
