@@ -70,7 +70,6 @@ function App() {
   return (
     <div className="App">
       <header className="header">
-
         <h1>Yu-Gi-Oh! Card Pricer</h1>
         <p className="credits">Desarrollado por Gabriel Boetto.</p>
         <h1>Yu-Gi-Oh! Card Pricer2</h1>
