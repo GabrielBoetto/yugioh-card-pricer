@@ -12,6 +12,7 @@ function App() {
   const [copias, setCopias] = useState(1); // Nueva variable para las copias
   const [confirmationMessage, setConfirmationMessage] = useState('');
   
+  
   useEffect(() => {
     axios
       .get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
