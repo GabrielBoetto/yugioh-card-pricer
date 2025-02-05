@@ -7,7 +7,35 @@
     <link rel="stylesheet" href="./src/App.css">
 </head>
 <body>
-    <div id="root"></div>
-    <script type="module" src="./src/App.js"></script>
+
+    <header>
+        <h1>Yu-Gi-Oh! Card Pricer</h1>
+    </header>
+
+    <section class="card-list">
+        <h2>Lista de Cartas</h2>
+        <div class="cards" id="cards-container">
+            <!-- Las cartas se cargarán dinámicamente aquí -->
+        </div>
+    </section>
+
+    <section class="create-list">
+        <h2>Armar tu Lista de Cartas</h2>
+        <form id="card-form">
+            <!-- Los checkboxes de las cartas se agregarán dinámicamente aquí -->
+        </form>
+
+        <h3>Lista de Cartas Seleccionadas:</h3>
+        <ul id="selected-cards-list">
+            <!-- Aquí se agregarán las cartas seleccionadas -->
+        </ul>
+        <button id="add-cards-btn">Agregar a Lista</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Yu-Gi-Oh! Card Pricer</p>
+    </footer>
+
+    <script src="./src/App.js"></script>
 </body>
 </html>

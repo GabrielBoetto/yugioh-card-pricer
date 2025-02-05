@@ -1,181 +1,71 @@
-/* Estilo global */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #7348ac;
-  color: #333;
+  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color: #f4f4f4;
 }
 
 header {
-  background: linear-gradient(90deg, #3498db, #03ac82);
+  background-color: #333;
   color: white;
-  padding: 20px 0;
+  padding: 1rem;
   text-align: center;
 }
 
-
-header h1 {
+h1 {
   margin: 0;
-  font-size: 2rem;
 }
 
-header .credits {
-  font-size: 1rem;
-  color: #be0c0c;
-  margin-top: 10px;
+.card-list, .create-list {
+  margin: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Botones */
-button {
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-button:disabled {
-  background-color: #bdc3c7;
-  cursor: not-allowed;
+.card {
+  width: 200px;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-/* Botón primario */
-.button-primary {
-  background-color: #3498db;
-  color: white;
-  border: none;
+.card img {
+  max-width: 100%;
+  border-radius: 8px;
 }
 
-.button-primary:hover {
-  background-color: #03ac82;
+.card p {
+  margin: 0.5rem 0;
 }
 
-.button-primary:active {
-  transform: scale(0.95);
+.create-list form {
+  margin-top: 1rem;
 }
 
-/* Botón secundario */
-.button-secondary {
-  background-color: transparent;
-  color: #3498db;
-  border: 2px solid #3498db;
+label {
+  margin-right: 10px;
 }
 
-.button-secondary:hover {
-  background-color: #3498db;
-  color: white;
-}
-
-/* Botón de link */
-.button-link {
-  background: none;
-  border: none;
-  color: #3498db;
-  text-decoration: underline;
+#selected-cards-list {
+  margin-top: 1rem;
+  list-style-type: none;
   padding: 0;
 }
 
-.button-link:hover {
-  color: #03ac82;
+#selected-cards-list li {
+  background-color: #e0f7fa;
+  padding: 0.5rem;
+  margin-bottom: 5px;
+  border-radius: 4px;
 }
-
-/* Inputs con estados */
-input {
-  padding: 12px;
-  border-radius: 5px;
-  border: 2px solid #3498db;
-  font-size: 16px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus {
-  border-color: #03ac82;
-  box-shadow: 0 0 5px #03ac82;
-}
-
-input:disabled {
-  background-color: #f0f0f0;
-  border-color: #bdc3c7;
-  cursor: not-allowed;
-}
-
-/* Cards */
-.card-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 10px;
-  padding: 10px;
-}
-
-.card-item {
-  background-color: #ffffff;
-  border: 1px solid #ecf0f1;
-  border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 10px;
-  transition: transform 0.3s ease;
-  max-width: 120px;
-}
-
-.card-item:hover {
-  transform: translateY(-5px);
-}
-
-.card-image {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  margin-bottom: 10px;
-}
-
-/* Modal para lista */
-.modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 500px;
-  padding: 20px;
-  display: none;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal-header {
-  font-size: 1.5rem;
-  margin-bottom: 10px;
-}
-
-.modal-close {
-  align-self: flex-end;
-  background: none;
-  border: none;
-  color: #3498db;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-/* Footer */
-footer {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #7f8c8d;
-}
-
-footer a {
-  color: #3498db;
-  text-decoration: none;
-  font-weight: bold;
-}
-

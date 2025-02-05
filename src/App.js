@@ -1,145 +1,64 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./App.css";
+// Obtener el contenedor de cartas y el formulario
+const cardsContainer = document.getElementById("cards-container");
+const cardForm = document.getElementById("card-form");
+const selectedCardsList = document.getElementById("selected-cards-list");
 
-function App() {
-  const [cartas, setCartas] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true);
-  const [selectedCartas, setSelectedCartas] = useState([]);
-  const [showList, setShowList] = useState(false);
-  const [copias, setCopias] = useState(1);
-  const [confirmationMessage, setConfirmationMessage] = useState("");
+// URL del archivo JSON de cartas
+const jsonURL = 'https://raw.githubusercontent.com/db-ygoresources-com/yugioh-card-history/main/cards.json';
 
-  useEffect(() => {
-    axios
-      .get("https://db.ygoprodeck.com/api/v7/cardinfo.php")
-      .then((response) => {
-        setCartas(response.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error al obtener las cartas:", error);
-        setLoading(false);
-      });
-  }, []);
+// Cargar las cartas desde el repositorio en GitHub
+fetch(jsonURL)
+    .then(response => response.json())
+    .then(data => {
+        // Llenar las cartas en el contenedor
+        data.cards.forEach(card => {
+            // Crear la tarjeta en el contenedor de cartas
+            const cardDiv = document.createElement("div");
+            cardDiv.classList.add("card");
+            cardDiv.innerHTML = `
+                <img src="${card.card_images[0].image_url}" alt="${card.name}">
+                <p>${card.name}</p>
+                <p>Precio: $${card.card_prices[0].card_price}</p>
+            `;
+            cardsContainer.appendChild(cardDiv);
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
+            // Crear un checkbox para cada carta en el formulario
+            const cardCheckbox = document.createElement("input");
+            cardCheckbox.type = "checkbox";
+            cardCheckbox.id = card.id;
+            cardCheckbox.name = "cards";
+            cardCheckbox.value = card.name;
+            const label = document.createElement("label");
+            label.setAttribute("for", card.id);
+            label.innerText = card.name;
 
-  const filteredCartas = cartas.filter((carta) =>
-    carta.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+            // Agregar los elementos al formulario
+            cardForm.appendChild(label);
+            cardForm.appendChild(cardCheckbox);
+            cardForm.appendChild(document.createElement("br"));
+        });
+    })
+    .catch(error => console.error("Error al cargar las cartas:", error));
 
-  const handleAddToList = (carta) => {
-    setSelectedCartas((prevList) => {
-      const cartaExistente = prevList.find((item) => item.id === carta.id);
-      if (cartaExistente) {
-        cartaExistente.copias += copias;
-        return [...prevList];
-      } else {
-        return [...prevList, { ...carta, copias }];
-      }
+// Función para agregar las cartas seleccionadas a la lista
+document.getElementById("add-cards-btn").addEventListener("click", function () {
+    // Obtener los checkboxes seleccionados
+    const selectedCards = document.querySelectorAll('input[name="cards"]:checked');
+
+    // Limpiar la lista actual
+    selectedCardsList.innerHTML = "";
+
+    // Recorrer los checkboxes seleccionados y agregar las cartas a la lista
+    selectedCards.forEach(function (checkbox) {
+        const listItem = document.createElement("li");
+        listItem.textContent = checkbox.value;
+        selectedCardsList.appendChild(listItem);
     });
-    setConfirmationMessage(`Se han agregado ${copias} copias de ${carta.name} a la lista.`);
-    setTimeout(() => setConfirmationMessage(""), 3000);
-  };
 
-  const handleShowList = () => {
-    setShowList(!showList);
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-  };
-
-  const handleChangeCopias = (e) => {
-    setCopias(Number(e.target.value));
-  };
-
-  return (
-    <div className="App">
-      <header className="header">
-        <h1>Yu-Gi-Oh! Card Pricer</h1>
-        <p className="credits">Desarrollado por Gabriel Boetto</p>
-      </header>
-
-      <div className="search-container">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearchChange}
-          placeholder="Buscar carta..."
-          className="search-input"
-        />
-        <div className="button-container">
-          <button className="view-list-button" onClick={handleShowList}>
-            Ver Lista
-          </button>
-        </div>
-      </div>
-
-      {confirmationMessage && <div className="confirmation-message">{confirmationMessage}</div>}
-
-      <div className="card-list">
-        {loading ? (
-          <p>Cargando cartas...</p>
-        ) : filteredCartas.length > 0 ? (
-          filteredCartas.map((carta) => (
-            <div key={carta.id} className="card-item">
-              <img
-                src={carta.card_images[0].image_url}
-                alt={`Imagen de ${carta.name}`}
-                className="card-image"
-                loading="lazy"
-              />
-              <h2>{carta.name}</h2>
-              <p>{carta.type}</p>
-              <div className="quantity-container">
-                <label htmlFor="copias">Copias: </label>
-                <input
-                  type="number"
-                  id="copias"
-                  min="1"
-                  value={copias}
-                  onChange={handleChangeCopias}
-                  className="copias-input"
-                />
-              </div>
-              <button className="add-to-list-button" onClick={() => handleAddToList(carta)}>
-                Agregar a la lista
-              </button>
-            </div>
-          ))
-        ) : (
-          <p>No se encontraron cartas</p>
-        )}
-      </div>
-
-      {showList && (
-        <div className="selected-cards">
-          <h2>Cartas Seleccionadas</h2>
-          {selectedCartas.length > 0 ? (
-            <ul>
-              {selectedCartas.map((carta, index) => (
-                <li key={index}>
-                  <img
-                    src={carta.card_images[0].image_url}
-                    alt={`Imagen de ${carta.name}`}
-                    className="card-thumbnail"
-                    loading="lazy"
-                  />
-                  <div>
-                    {carta.name} - Copias: {carta.copias}
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No has seleccionado ninguna carta.</p>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default App;
+    // Si no se seleccionaron cartas
+    if (selectedCards.length === 0) {
+        const noSelection = document.createElement("li");
+        noSelection.textContent = "No has seleccionado ninguna carta.";
+        selectedCardsList.appendChild(noSelection);
+    }
+});
