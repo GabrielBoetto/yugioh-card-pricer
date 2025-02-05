@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yu-Gi-Oh! Card Pricer</title>
-    <link rel="stylesheet" href="/App.css">
+    <title>Card Pricer</title>
+    <link rel="stylesheet" href="App.css">
 </head>
 <body>
 
-    <header>
-        <h1>Yu-Gi-Oh! Card Pricer</h1>
-    </header>
+<header>
+    <h1>Card Pricer - MTG</h1>
+    <p>Busca y agrega cartas a tu lista de compras</p>
+    <p>Desarrollado por Gabriel Boetto</p>
+</header>
 
-    <section class="card-list">
-        <h2>Lista de Cartas</h2>
-        <div class="cards" id="cards-container">
-            <!-- Las cartas se cargarán dinámicamente aquí -->
-        </div>
-    </section>
+<!-- Barra de búsqueda -->
+<section class="search-section">
+    <input type="text" id="card-name" placeholder="Buscar carta...">
+    <button onclick="buscarCarta()">Buscar</button>
+</section>
 
-    <section class="create-list">
-        <h2>Armar tu Lista de Cartas</h2>
-        <form id="card-form">
-            <!-- Los checkboxes de las cartas se agregarán dinámicamente aquí -->
-        </form>
+<!-- Sección para mostrar las cartas encontradas -->
+<section class="cards-section">
+    <div id="cards-container" class="cards-container">
+        <!-- Las cartas aparecerán aquí -->
+    </div>
+</section>
 
-        <h3>Lista de Cartas Seleccionadas:</h3>
-        <ul id="selected-cards-list">
-            <!-- Aquí se agregarán las cartas seleccionadas -->
-        </ul>
-        <button id="add-cards-btn">Agregar a Lista</button>
-    </section>
+<!-- Sección para ver la lista de cartas añadidas -->
+<section class="create-list">
+    <h2>Lista de cartas</h2>
+    <ul id="selected-cards-list">
+        <!-- Lista de cartas seleccionadas -->
+    </ul>
+    <div id="total-price">Total: $0.00</div>
+</section>
 
-    <footer>
-        <p>&copy; 2025 Yu-Gi-Oh! Card Pricer</p>
-    </footer>
-
-    <script src="/App.js"></script>
+<script src="./App.js"></script>
 </body>
 </html>
