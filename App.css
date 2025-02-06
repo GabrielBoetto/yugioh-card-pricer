@@ -35,6 +35,9 @@ p {
 .search-section {
   padding: 20px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 input[type="text"] {
@@ -44,7 +47,6 @@ input[type="text"] {
   max-width: 400px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  margin-right: 10px;
 }
 
 button {
@@ -73,7 +75,7 @@ button:hover {
 
 .cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Reducir tamaño mínimo de las cartas */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
   width: 100%;
@@ -97,7 +99,7 @@ button:hover {
 }
 
 .card img {
-  max-width: 80%; /* Reducir el tamaño de las imágenes */
+  max-width: 100%;
   border-radius: 8px;
 }
 
@@ -168,7 +170,7 @@ p {
 
 /* Botones */
 button {
-  width: 100%;
+  width: 150px;
   padding: 15px;
   background-color: #2980b9;
   color: white;
