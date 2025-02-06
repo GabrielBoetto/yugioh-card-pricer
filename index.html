@@ -18,6 +18,7 @@
 <section class="search-section">
     <input type="text" id="card-name" placeholder="Buscar carta...">
     <button onclick="buscarCarta()">Buscar</button>
+    <button onclick="verLista()">Tu Lista</button> <!-- Botón "Tu Lista" -->
 </section>
 
 <!-- Sección para mostrar las cartas encontradas -->
@@ -28,7 +29,7 @@
 </section>
 
 <!-- Sección para ver la lista de cartas añadidas -->
-<section class="create-list">
+<section class="create-list" id="create-list-section">
     <h2>Lista de cartas</h2>
     <ul id="selected-cards-list">
         <!-- Lista de cartas seleccionadas -->

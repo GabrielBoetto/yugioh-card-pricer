@@ -1,95 +1,46 @@
-// Función para buscar cartas
-async function buscarCarta() {
-    const query = document.getElementById('card-name').value;
+// Función para buscar carta
+function buscarCarta() {
+    let cardName = document.getElementById('card-name').value.trim();
   
-    if (!query) {
+    if (cardName === '') {
       alert('Por favor, ingresa el nombre de una carta.');
       return;
     }
   
-    try {
-      const response = await fetch(`https://api.scryfall.com/cards/search?q=${query}`);
-      const data = await response.json();
+    // Simulación de búsqueda de cartas
+    const cards = [
+      { name: 'Black Lotus', price: '$5000', image: 'https://via.placeholder.com/150' },
+      { name: 'Shivan Dragon', price: '$10', image: 'https://via.placeholder.com/150' },
+      { name: 'Lightning Bolt', price: '$1', image: 'https://via.placeholder.com/150' },
+      { name: 'Forest', price: '$2', image: 'https://via.placeholder.com/150' },
+    ];
   
-      // Limpiar resultados anteriores
-      const cardsContainer = document.getElementById('cards-container');
-      cardsContainer.innerHTML = '';
+    // Filtrar las cartas según el nombre (insensible a mayúsculas/minúsculas)
+    const foundCard = cards.filter(card => card.name.toLowerCase().includes(cardName.toLowerCase()));
   
-      // Verificar si no se encontraron cartas
-      if (data.total_cards === 0) {
-        alert('No se encontraron cartas con ese nombre.');
-        return;
-      }
-  
-      // Mostrar cartas encontradas
-      data.data.forEach((card) => {
-        const cardElement = document.createElement('div');
-        cardElement.classList.add('card');
-        
-        const cardImage = document.createElement('img');
-        cardImage.src = card.image_uris ? card.image_uris.small : 'https://via.placeholder.com/150';
-  
-        const cardTitle = document.createElement('h3');
-        cardTitle.textContent = card.name;
-  
-        const quantityInput = document.createElement('input');
-        quantityInput.type = 'number';
-        quantityInput.value = 1;
-        quantityInput.min = 1;
-        quantityInput.id = `quantity-${card.id}`;
-        
-        const addButton = document.createElement('button');
-        addButton.textContent = 'Añadir a la lista';
-        addButton.onclick = () => agregarCarta(card, quantityInput.value);
-  
-        cardElement.appendChild(cardImage);
-        cardElement.appendChild(cardTitle);
-        cardElement.appendChild(quantityInput);
-        cardElement.appendChild(addButton);
-  
-        cardsContainer.appendChild(cardElement);
-      });
-    } catch (error) {
-      alert('Ocurrió un error al buscar las cartas.');
+    if (foundCard.length > 0) {
+      mostrarCartas(foundCard);
+    } else {
+      alert('No se encontraron cartas con ese nombre.');
     }
   }
   
-  // Función para añadir carta a la lista
-  function agregarCarta(card, quantity) {
-    const quantityNumber = parseInt(quantity);
+  // Función para mostrar las cartas encontradas
+  function mostrarCartas(cards) {
+    const cardsContainer = document.getElementById('cards-container');
+    cardsContainer.innerHTML = ''; // Limpiar cartas anteriores
   
-    if (quantityNumber <= 0) {
-      alert('Por favor, ingresa una cantidad válida.');
-      return;
-    }
-  
-    // Agregar carta a la lista
-    const selectedCardsList = document.getElementById('selected-cards-list');
-    const listItem = document.createElement('li');
-    listItem.textContent = `${card.name} x${quantityNumber}`;
-  
-    selectedCardsList.appendChild(listItem);
-  
-    // Mostrar alerta de confirmación
-    alert(`Se añadió ${card.name} x${quantityNumber} a tu lista.`);
-    
-    // Actualizar el precio total
-    actualizarPrecioTotal();
-  }
-  
-  // Función para calcular el precio total
-  function actualizarPrecioTotal() {
-    const totalPrice = document.getElementById('total-price');
-    const selectedCardsList = document.getElementById('selected-cards-list').children;
-  
-    let total = 0;
-  
-    // Aquí iría el cálculo del precio total de las cartas seleccionadas
-    Array.from(selectedCardsList).forEach((item) => {
-      // Este cálculo debe estar basado en los precios de las cartas que ya has obtenido
-      total += 10; // Este es un valor de ejemplo, debes reemplazarlo por el precio real de la carta
+    cards.forEach(card => {
+      const cardElement = document.createElement('div');
+      cardElement.classList.add('card');
+      cardElement.innerHTML = `
+        <img src="${card.image}" alt="${card.name}">
+        <p>${card.name}</p>
+        <p>Precio: ${card.price}</p>
+        <input type="number" min="1" value="1" id="quantity-${card.name}" />
+        <button onclick="agregarCarta('${card.name}')">Agregar a la lista</button>
+      `;
+      cardsContainer.appendChild(cardElement);
     });
-  
-    totalPrice.textContent = `Total: $${total.toFixed(2)}`;
   }
   
